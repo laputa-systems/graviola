@@ -195,6 +195,9 @@ macro_rules! have_cpu_feature {
     ("bmi2") => {
         crate::low::x86_64::cpu::test_toggle("bmi2", is_x86_feature_detected!("bmi2"))
     };
+    ("popcnt") => {
+        crate::low::x86_64::cpu::test_toggle("popcnt", is_x86_feature_detected!("popcnt"))
+    };
     ("adx") => {
         crate::low::x86_64::cpu::test_toggle("adx", is_x86_feature_detected!("adx"))
     };
@@ -274,10 +277,14 @@ pub(crate) fn test_toggle(id: &str, detected: bool) -> bool {
 pub(crate) fn verify_cpu_features() {
     assert!(
         is_cpu_supported(),
-        "graviola requires adx, aes, avx, avx2, bmi1, and pclmulqdq CPU support. \
+        "graviola requires adx, aes, avx, avx2, bmi1, bmi2, pclmulqdq, and popcnt CPU support. \
         (rebuild with VALGRIND_BUG_494162 for valgrind compatibility)"
     );
 }
+
+#[cfg(all(test, debug_assertions))]
+#[path = "cpu_required_feature_tests.rs"]
+mod required_feature_tests;
 
 pub(crate) fn is_cpu_supported() -> bool {
     // these are the cpu features we require unconditionally.
@@ -287,6 +294,8 @@ pub(crate) fn is_cpu_supported() -> bool {
     have_cpu_feature!("aes")
         && have_cpu_feature!("pclmulqdq")
         && have_cpu_feature!("bmi1")
+        && have_cpu_feature!("bmi2")
+        && have_cpu_feature!("popcnt")
         && (have_cpu_feature!("adx") || option_env!("VALGRIND_BUG_494162").is_some())
         && is_x86_feature_detected!("avx")
         && have_cpu_feature!("avx2")
