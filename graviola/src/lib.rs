@@ -196,6 +196,7 @@ full_platform! {
 pub mod aead {
     pub use super::mid::aes_gcm::AesGcm;
     pub use super::mid::chacha20poly1305::ChaCha20Poly1305;
+    pub use super::mid::ssh_chacha20poly1305::SshChaCha20Poly1305;
     pub use super::mid::xchacha20poly1305::XChaCha20Poly1305;
 }
 

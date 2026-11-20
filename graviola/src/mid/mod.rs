@@ -15,6 +15,7 @@ full_platform! {
     pub(super) mod rng;
     pub(super) mod rsa_priv;
     pub(super) mod rsa_pub;
+    pub(super) mod ssh_chacha20poly1305;
     pub mod sha3;
     pub(super) mod util;
     pub(super) mod x25519;
