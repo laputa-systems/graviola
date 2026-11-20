@@ -1,3 +1,5 @@
+Required x86_64 CPU features: adx, aes, avx, avx2, bmi1, bmi2, pclmulqdq, and popcnt.
+
 # x86-64 CPU compatibility
 
 This tracks the compatibility of Intel CPU families since 2004.  These are automatically characterised by the Intel SDE tool.
